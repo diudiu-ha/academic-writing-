@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEEE TPE 投稿格式自查清单</title>
+<style>
+  :root{
+    --bg:#f6f7f9;
+    --card:#ffffff;
+    --line:#e4e7ec;
+    --line-soft:#eef0f4;
+    --text:#1b1f26;
+    --text-2:#5a6272;
+    --text-3:#8a92a3;
+    --accent:#1f5fd0;
+    --accent-soft:#eaf1fd;
+    --warn:#c2410c;
+    --warn-bg:#fff5ee;
+    --warn-line:#f7d9c4;
+    --ok:#0f7b52;
+    --ok-bg:#eaf7f1;
+    --chip:#f0f2f6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 80px;}
+
+  /* ---------- header ---------- */
+  .hero{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 28px;
+    margin-bottom:18px;
+  }
+  .hero h1{margin:0 0 6px;font-size:22px;letter-spacing:.2px;}
+  .hero p{margin:0;color:var(--text-2);font-size:13px;}
+  .hero .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+  .tag{
+    background:var(--chip);color:var(--text-2);
+    font-size:12px;padding:4px 10px;border-radius:20px;
+  }
+
+  /* ---------- progress ---------- */
+  .progress-box{
+    display:flex;align-items:center;gap:16px;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:18px 24px;margin-bottom:18px;
+  }
+  .bar{flex:1;height:10px;background:var(--line-soft);border-radius:6px;overflow:hidden;}
+  .bar > i{display:block;height:100%;width:0;background:var(--accent);border-radius:6px;transition:width .35s ease;}
+  .pct{font-variant-numeric:tabular-nums;font-weight:600;font-size:15px;min-width:96px;text-align:right;color:var(--accent);}
+  .btns{display:flex;gap:8px;}
+  button{
+    font-family:inherit;font-size:12px;cursor:pointer;
+    background:var(--card);color:var(--text-2);
+    border:1px solid var(--line);border-radius:7px;padding:6px 12px;
+    transition:.15s;
+  }
+  button:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+
+  /* ---------- pitfalls ---------- */
+  .pitfall{
+    background:var(--warn-bg);border:1px solid var(--warn-line);
+    border-radius:14px;padding:20px 24px;margin-bottom:18px;
+  }
+  .pitfall h2{margin:0 0 12px;font-size:15px;color:var(--warn);display:flex;align-items:center;gap:7px;}
+  .pitfall ol{margin:0;padding-left:20px;color:#6b3410;}
+  .pitfall li{margin-bottom:6px;font-size:13px;}
+  .pitfall li b{color:#8a2c06;}
+
+  /* ---------- size table ---------- */
+  .size-tbl{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:20px 24px;margin-bottom:18px;overflow-x:auto;
+  }
+  .size-tbl h2{margin:0 0 14px;font-size:15px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px;}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line-soft);}
+  th{color:var(--text-3);font-weight:600;font-size:12px;letter-spacing:.3px;background:#fafbfc;}
+  td.mono{font-family:"SFMono-Regular",Consolas,monospace;font-size:12.5px;}
+  tr:last-child td{border-bottom:none;}
+
+  /* ---------- sections ---------- */
+  details{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;margin-bottom:10px;overflow:hidden;
+  }
+  details[open]{border-color:#cfd7e3;}
+  summary{
+    cursor:pointer;list-style:none;padding:15px 20px;
+    display:flex;align-items:center;gap:12px;user-select:none;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary .caret{
+    width:16px;height:16px;flex:0 0 16px;color:var(--text-3);
+    transition:transform .2s;
+  }
+  details[open] summary .caret{transform:rotate(90deg);}
+  summary .stitle{font-weight:600;font-size:14.5px;flex:1;}
+  summary .sstat{font-size:12px;color:var(--text-3);font-variant-numeric:tabular-nums;}
+  .sbody{padding:4px 20px 18px;border-top:1px solid var(--line-soft);}
+
+  label.item{
+    display:flex;gap:11px;align-items:flex-start;
+    padding:9px 4px;border-radius:8px;cursor:pointer;transition:background .12s;
+  }
+  label.item:hover{background:#fafbfd;}
+  label.item input{
+    appearance:none;-webkit-appearance:none;
+    width:17px;height:17px;flex:0 0 17px;margin-top:3px;
+    border:1.5px solid #c3c9d4;border-radius:5px;background:#fff;
+    cursor:pointer;position:relative;transition:.15s;
+  }
+  label.item input:checked{background:var(--accent);border-color:var(--accent);}
+  label.item input:checked::after{
+    content:"";position:absolute;left:5px;top:1.5px;
+    width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;
+    transform:rotate(42deg);
+  }
+  .txt{font-size:13.5px;color:var(--text);}
+  .txt .note{display:block;color:var(--text-3);font-size:12px;margin-top:2px;}
+  .txt code{
+    background:var(--chip);border-radius:4px;padding:1px 5px;
+    font-family:"SFMono-Regular",Consolas,monospace;font-size:12px;color:#334155;
+  }
+  label.item input:checked ~ .txt{color:var(--text-3);text-decoration:line-through;text-decoration-color:#c8cdd8;}
+
+  .grp-label{
+    font-size:11.5px;color:var(--accent);background:var(--accent-soft);
+    display:inline-block;padding:2px 9px;border-radius:5px;margin:14px 0 4px;font-weight:600;
+  }
+  .grp-label:first-child{margin-top:10px;}
+
+  footer{
+    text-align:center;color:var(--text-3);font-size:12px;
+    margin-top:26px;line-height:1.8;
+  }
+
+  @media print{
+    body{background:#fff;}
+    .btns,footer button{display:none;}
+    details{border-color:#ccc;break-inside:avoid;}
+    details:not([open]) .sbody{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>IEEE Transactions / Journals 论文投稿格式自查清单</h1>
+    <p>依据官方 Word 模板《Preparation of Articles for IEEE TRANSACTIONS and JOURNALS》整理 · 适用于 TPE 等 IEEE 汇刊投稿前的最后一道格式把关</p>
+    <div class="meta">
+      <span class="tag">9 大模块</span>
+      <span class="tag">80+ 检查项</span>
+      <span class="tag">含字号速查表</span>
+      <span class="tag">可勾选 · 自动保存进度</span>
+    </div>
+  </div>
+
+  <div class="progress-box">
+    <div class="bar"><i id="bar"></i></div>
+    <div class="pct" id="pct">0 / 0</div>
+    <div class="btns">
+      <button onclick="toggleAll(true)">全部勾选</button>
+      <button onclick="toggleAll(false)">重置</button>
+      <button onclick="window.print()">打印</button>
+    </div>
+  </div>
+
+  <div class="pitfall">
+    <h2>⚠️ 最容易被编辑退回 / 返修的 10 个坑（优先看这里）</h2>
+    <ol>
+      <li><b>改字号、改行距压缩页数</b>——模板两处明文禁止，编辑一眼能看出来。</li>
+      <li><b>图题写到了图的上方 / 表题写到了表的下方</b>——IEEE 规定图题在下、表题在上。</li>
+      <li><b>图分辨率不够</b>：彩图/灰度图/照片 &lt;300 dpi，线图和表格 &lt;600 dpi。</li>
+      <li><b>图里的字太小</b>：图内标注应为 8–10 pt，导出后往往只剩 5–6 pt。</li>
+      <li><b>坐标轴只写单位或写 "Temperature/K"</b>——必须写成 "Temperature (K)" / "Magnetization (kA/m)"。</li>
+      <li><b>摘要不是单段 / 摘要里塞了公式和参考文献引用</b>——硬性禁止。</li>
+      <li><b>引用写成 "Eq. (1)"、"Ref. [3]"</b>——正文只用 "(1)"、"[3]"，句首除外。</li>
+      <li><b>用了 Word 自动尾注做参考文献</b>——必须手动用 References 样式排版。</li>
+      <li><b>表格编号用了阿拉伯数字</b>——表必须用罗马数字 TABLE I、TABLE II。</li>
+      <li><b>把 caption 做进图片里 / 用文本框挂 caption / 给图加外边框</b>——都是明令禁止。</li>
+    </ol>
+  </div>
+
+  <div class="size-tbl">
+    <h2>📐 字号与样式速查表（模板样式定义实测值）</h2>
+    <table>
+      <thead>
+        <tr><th>元素</th><th>字号</th><th>模板样式名</th><th>对齐 / 字形</th><th>备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>论文标题 Title</td><td class="mono">24 pt</td><td class="mono">Title</td><td>居中</td><td>大小写混排，非全大写</td></tr>
+        <tr><td>作者 Authors</td><td class="mono">11 pt</td><td class="mono">Authors</td><td>居中</td><td>会籍标在姓名后</td></tr>
+        <tr><td>摘要 Abstract</td><td class="mono">9 pt</td><td class="mono">Abstract</td><td>两端对齐 · 加粗</td><td>必须单段</td></tr>
+        <tr><td>关键词 Index Terms</td><td class="mono">9 pt</td><td class="mono">IndexTerms</td><td>两端对齐 · 加粗</td><td>字母序，逗号分隔</td></tr>
+        <tr><td>正文 Text</td><td class="mono">10 pt</td><td class="mono">Text / Normal</td><td>两端对齐 · 首行缩进</td><td>行距约 1.05</td></tr>
+        <tr><td>一级标题 Heading 1</td><td class="mono">10 pt</td><td class="mono">Heading1</td><td>居中 · 小型大写 (small caps)</td><td>罗马数字 I. II. III.</td></tr>
+        <tr><td>二级标题 Heading 2</td><td class="mono">10 pt</td><td class="mono">Heading2</td><td>左对齐 · <i>斜体</i></td><td>A. B. C.</td></tr>
+        <tr><td>三级标题 Heading 3</td><td class="mono">10 pt</td><td class="mono">Heading3</td><td>左对齐 · <i>斜体</i></td><td>1) 2) 3)</td></tr>
+        <tr><td><b>图题 Figure Caption</b></td><td class="mono">8 pt</td><td class="mono">FigureCaption</td><td>两端对齐</td><td>位于图<b>下方</b></td></tr>
+        <tr><td><b>表题 Table Title</b></td><td class="mono">8 pt</td><td class="mono">TableTitle</td><td>居中 · 小型大写</td><td>位于表<b>上方</b></td></tr>
+        <tr><td>表内文字</td><td class="mono">8 pt</td><td>—</td><td>按内容居中或左对齐</td><td>与图内文字保持同级可读</td></tr>
+        <tr><td>图 / 表内标注文字</td><td class="mono">8–10 pt</td><td>—</td><td>—</td><td>子图标签 (a)(b)(c)：8 pt Times New Roman</td></tr>
+        <tr><td>参考文献 References</td><td class="mono">8 pt</td><td class="mono">References</td><td>两端对齐 · 编号悬挂</td><td>编号单独成列</td></tr>
+        <tr><td>脚注 Footnote</td><td class="mono">8 pt</td><td class="mono">FootnoteText</td><td>所在栏底部</td><td>正文中上标编号</td></tr>
+        <tr><td>作者照片</td><td colspan="4">1 in × 1.25 in（25.4 mm × 31.75 mm）；社论用图为 1.59 in × 2 in</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="list"></div>
+
+  <footer>
+    勾选状态保存在本机浏览器（localStorage），关闭后不会丢失<br>
+    依据模板：Preparation of Articles for IEEE TRANSACTIONS and JOURNALS (2022)
+  </footer>
+</div>
+
+<script>
+const DATA = [
+  {
+    t:"一、页面与版式基础",
+    groups:[
+      { g:"", items:[
+        ["双栏排版，页面尺寸 8.5 in × 11 in（Letter）", "模板 sectPr：pgSz 12240 × 15840 twips"],
+        ["页边距：上下 0.7 in (17.8 mm)，左右 0.65 in (16.5 mm)", "top/bottom=1008 twips，left/right=936 twips"],
+        ["栏宽 3.5 in (88 mm / 21 picas)，栏间距 0.5 in", "通栏宽度 7.16 in (181 mm / 43 picas)"],
+        ["<b>绝对没有</b>为了塞进限定的页数而手动改字号或行距", "模板两处明文禁止：Do not change the font sizes or line spacing"],
+        ["全文使用样式（Title / Authors / Abstract / Text / Heading 1-3 / FigureCaption / TableTitle / References）而非手动改字体", "选中内容 → 套用样式，不要逐段手改"],
+        ["强调用<i>斜体</i>，<b>不用下划线</b>", "Use italics for emphasis; do not underline"],
+        ["正文首行缩进、两端对齐，未用空格敲缩进", "Text 样式：firstLine=202 twips，jc=both"],
+      ]}
+    ]
+  },
+  {
+    t:"二、标题 · 作者 · 摘要 · 关键词",
+    groups:[
+      { g:"标题", items:[
+        ["标题大小写混排，<b>没有全大写</b>", "Titles should be written in uppercase and lowercase letters"],
+        ["标题中没有 “(Invited)” 之类的标注", "Do not write “(Invited)” in the title"],
+        ["标题中避免带长下标的长公式（Nd–Fe–B 这类短公式可以）", ""],
+        ["标题中所有<b>变量用斜体</b>，数字和单位用正体", "all variables should appear lightface italic"],
+        ["标题中尽量避免缩写（IEEE 等 unavoidable 的除外）", ""],
+      ]},
+      { g:"作者", items:[
+        ["作者写全名（Preferred，非强制）", "Full names of authors are preferred"],
+        ["姓名首字母之间有空格，如 “J. K. Author” 而非 “J.K. Author”", "Put a space between authors’ initials"],
+        ["会籍标注格式正确（Fellow, IEEE / Member, IEEE）", ""],
+        ["ORCID 已放在作者区（可选项）", ""],
+      ]},
+      { g:"摘要", items:[
+        ["摘要<b>是且仅是一段</b>，没有分段", "Abstracts must be a single paragraph"],
+        ["摘要中<b>没有</b>独立展示的数学公式", ""],
+        ["摘要中<b>没有</b>参考文献编号引用、<b>没有</b>脚注", ""],
+        ["包含 3–4 个不同的关键词 / 短语（用于检索）", ""],
+        ["关键词没有过度重复（会被搜索引擎拒收）", "avoid over-repetition of such phrases"],
+        ["摘要可独立成文，语法正确、逻辑完整", "accurate, stand-alone reflection of the contents"],
+      ]},
+      { g:"Index Terms", items:[
+        ["关键词按<b>字母顺序</b>排列，逗号分隔", "keywords in alphabetical order, separated by commas"],
+        ["已用 IEEE Thesaurus 核对标准关键词", "ieee.org/publications/services/thesaurus.html"],
+      ]}
+    ]
+  },
+  {
+    t:"三、章节标题与正文",
+    groups:[
+      { g:"", items:[
+        ["一级标题：罗马数字 + 英文点号，如 “I. INTRODUCTION”，<b>居中 + 小型大写</b>", ""],
+        ["二级标题：大写字母 + 点号，如 “A. Abbreviations”，<b>斜体</b>", ""],
+        ["三级标题：数字 + 右括号，如 “1) ...”，<b>斜体</b>", ""],
+        ["标题层级没有跳级（没有 I. 之后直接 1)）", ""],
+        ["缩写和 acronyms 在正文<b>首次出现处</b>已定义（即使摘要里定义过也要再定义）", ""],
+        ["IEEE、SI、ac、dc 等通用缩写未重复定义", ""],
+        ["带句点的缩写点后<b>无空格</b>：C.N.R.S. 而非 C. N. R. S.", ""],
+        ["结论（可选）没有照抄摘要", "do not replicate the abstract as the conclusion"],
+        ["Appendix 放在 Acknowledgment <b>之前</b>", ""],
+      ]}
+    ]
+  },
+  {
+    t:"四、数学公式与算法",
+    groups:[
+      { g:"", items:[
+        ["公式用公式编辑器（Word 公式 / MathType）制作，不是图片或纯文本", ""],
+        ["公式连续编号，编号用括号 <code>(1)</code> 并<b>右对齐到栏右边界</b>", "先用 Equation 样式，再 Tab 后写编号"],
+        ["公式中的符号在公式前或紧跟其后已定义", ""],
+        ["<b>变量/符号斜体，单位正体</b>（T 是温度，T 是特斯拉）", "Italicize symbols"],
+        ["正文引用只用 <code>(1)</code>，没有写 “Eq. (1)” 或 “equation (1)”", "仅句首例外：Equation (1) is ..."],
+        ["公式作为句子的一部分时，<b>句末加了标点</b>", "Punctuate equations when they are part of a sentence"],
+        ["复杂分母用括号消除歧义；可用 / 、exp()、指数让公式更紧凑", ""],
+        ["Algorithm 有编号 + 简短标题，上下有横线与正文隔开", ""],
+      ]}
+    ]
+  },
+  {
+    t:"五、图片（重点 · 最易出错）",
+    groups:[
+      { g:"编号与图题", items:[
+        ["图的编号格式为 <code>Fig. 1.</code>，<b>句首也用缩写 Fig.</b>", "Do not abbreviate “Table”，但 Fig. 句首也用"],
+        ["图号按正文首次引用顺序连续编号，无跳号、无重号", ""],
+        ["<b>图题位于图的下方</b>", "Place figure captions below the figures"],
+        ["图题字号 8 pt，使用 FigureCaption 样式", ""],
+        ["正文中的引用与图号一一对应，每张图都在正文中被引用过", ""],
+      ]},
+      { g:"图内文字与标注", items:[
+        ["坐标轴用<b>文字</b>而非纯符号：写 “Magnetization”，不只写 “M”", ""],
+        ["单位放在括号里：<code>Magnetization (A/m)</code>，不是只写 “A/m”", ""],
+        ["没有 “Temperature/K” 这类“量/单位”的比值写法，已改为 <code>Temperature (K)</code>", ""],
+        ["倍数写成 <code>Magnetization (kA/m)</code> 或 <code>(10³ A/m)</code>，没有用 “×1000”", ""],
+        ["图内所有文字字号 <b>8–10 pt</b>，缩到单栏宽度后仍然清晰可读", ""],
+        ["图内字体属于：Times New Roman / Helvetica / Arial / Cambria / Symbol", ""],
+        ["曲线/图例文字没有被图片缩放压到不可读", ""],
+      ]},
+      { g:"多子图", items:[
+        ["多子图在提交前已<b>合并为一张图</b>，不是零散多张", ""],
+        ["子图标签格式为 <code>(a) (b) (c)</code>，<b>居中放在每个子图下方</b>", ""],
+        ["子图标签为 8 pt Times New Roman", ""],
+        ["混合类型子图（线稿 + 灰度/彩图）按<b>更严格</b>的标准处理", ""],
+      ]},
+      { g:"尺寸与分辨率", items:[
+        ["单栏图宽 3.5 in (88 mm / 21 picas)；通栏图宽 7.16 in (181 mm / 43 picas)", ""],
+        ["图形高度不超过 8.5 in (216 mm)，且已为图题预留空间", "maximum depth 8.5 inches"],
+        ["彩图 / 灰度图 / 照片分辨率 ≥ <b>300 dpi</b>", ""],
+        ["线稿图（含表格类图形）分辨率 ≥ <b>600 dpi</b>", ""],
+        ["没有把图缩到小于单栏宽度（除非确有必要）", ""],
+      ]},
+      { g:"文件格式与颜色", items:[
+        ["图片格式为 PS / EPS / TIFF / PDF / JPEG / PNG 之一", ""],
+        ["矢量图优先保存为 <b>EPS / PDF / PS</b>，字体已嵌入或已转为曲线（outline）", "All fonts must be embedded or text converted to outlines"],
+        ["彩图使用 RGB 或 CMYK 色彩空间；灰度图使用 Grayscale；线稿用 Grayscale 或 Bitmap", ""],
+        ["每张图作为<b>独立文件</b>单独提交（不只是嵌在 Word 里）", "Figures should be submitted as individual files"],
+        ["<b>没有</b>把 caption 做进图片里，也没有用文本框挂 caption", "Do not include captions as part of the figures / text boxes"],
+        ["<b>没有</b>给图加外边框", "do not place borders around the outside of your figures"],
+        ["若需印刷彩图，已在 Author Gateway 里申报（会额外收费）", ""],
+      ]},
+      { g:"位置", items:[
+        ["若图放在文中，位于<b>页顶</b>且靠近首次引用处（也可全部放在文末）", ""],
+      ]}
+    ]
+  },
+  {
+    t:"六、表格（重点）",
+    groups:[
+      { g:"", items:[
+        ["表格编号用<b>罗马数字</b>：<code>TABLE I</code>、<code>TABLE II</code>", "Tables should be numbered with Roman numerals"],
+        ["正文引用时不缩写 “Table”，写 <code>Table I</code> 而非 <code>Tab. I</code>", "Do not abbreviate “Table”"],
+        ["<b>表题位于表的上方</b>", "place table headings above the tables"],
+        ["表题 8 pt、小型大写、<b>居中</b>，使用 TableTitle 样式", ""],
+        ["表内文字字号 8 pt，与图内标注一致、肉眼可辨", ""],
+        ["表格为 IEEE 常用三线表风格（表头下方 + 表底两条横线），<b>无竖线、无杂乱网格</b>", "IEEE 汇刊惯例"],
+        ["表内所有列都有量纲/单位说明（写在列标题括号里，如 <code>Efficiency (%)</code>）", ""],
+        ["表内数字有效位数统一，小数点对齐", ""],
+        ["表格宽度不超过单栏 3.5 in；超宽表已改为通栏或拆表", ""],
+        ["<b>表注用字母上标（a, b, c…）</b>，不用数字脚注", "Use letters for table footnotes"],
+        ["表注放在表格下方，字号与表内文字一致或更小", ""],
+        ["表格作为图形提交时，分辨率 ≥ 600 dpi", "Line art, including tables should be a minimum of 600dpi"],
+        ["多子表（如有）标签 8 pt Times New Roman", ""],
+        ["表格编号与正文引用顺序一致，无跳号", ""],
+      ]}
+    ]
+  },
+  {
+    t:"七、参考文献",
+    groups:[
+      { g:"正文引用", items:[
+        ["引用用方括号 <code>[1]</code>，位置在<b>标点之内</b>", "they appear on the line, in square brackets, inside the punctuation"],
+        ["多个文献各自独立方括号，如 <code>[1], [3]</code> 或 <code>[2]–[5]</code>", "Multiple references are each numbered with separate brackets"],
+        ["<b>没有</b>写 “Ref. [3]” 或 “reference [3]”（句首 “Reference [3] shows...” 除外）", ""],
+        ["引用书籍章节时给出了页码", ""],
+      ]},
+      { g:"文献列表", items:[
+        ["<b>没有用 Word 自动尾注/脚注</b>生成文献，而是用 References 样式手动排版", "Do not use automatic endnotes in Word"],
+        ["编号左对齐悬挂，单独成列", "Reference numbers are set flush left"],
+        ["文献字号 8 pt", ""],
+        ["作者名缩写为<b>首字母</b>且放在<b>姓之前</b>：J. K. Author", ""],
+        ["6 位及以下作者<b>全部列出</b>，超过 6 位才用 et al.", ""],
+        ["Jr. / Sr. / III 前后都有逗号", ""],
+        ["期刊名使用标准缩写（如 IEEE Trans. Power Electron.）", ""],
+        ["IEEE 汇刊文献含<b>卷、期、页码、月份、年份</b>", ""],
+        ["一个编号只对应一篇文献，<b>没有合并</b>", "There must be only one reference with each number"],
+        ["非书籍类标题仅<b>首字母大写</b>（专有名词和元素符号除外）", ""],
+        ["DOI 已补上，格式 <code>doi: 10.1109/XXX.1234567</code>", "early access / to be published 的必须有 DOI"],
+        ["专利文献给出了日和月；在线资源给了 [Online]. Available: URL", ""],
+        ["参考文献编号与正文引用一一对应，无未引用 / 无未列出", ""],
+      ]}
+    ]
+  },
+  {
+    t:"八、脚注 · 致谢 · 附录 · 作者简历",
+    groups:[
+      { g:"", items:[
+        ["脚注用<b>上标数字</b>编号（Insert | Footnote）", ""],
+        ["脚注排在<b>引用所在栏的底部</b>，没有混入参考文献列表", "do not put footnotes in the reference list"],
+        ["表格注释用<b>字母</b>，正文脚注用数字，两套体系没有混用", ""],
+        ["标题拼写为 <b>Acknowledgment</b>（美式，g 后无 e）", ""],
+        ["即使致谢多人，标题仍用单数 Acknowledgment", "Use the singular heading"],
+        ["没有 “One of us (S.B.A.) would like to thank...”，改为 “F. A. Author thanks...”", ""],
+        ["基金 / 赞助信息放在首页<b>无编号脚注</b>，而不是致谢段", ""],
+        ["作者照片为近期免冠正面照，尺寸 1 in × 1.25 in（若期刊要求）", ""],
+        ["Biography 三段式：①出生地/日期+教育背景 ②第三人称工作经历 ③头衔+学会+获奖", ""],
+        ["Biography 第二段用<b>第三人称代词</b>，没有用作者姓氏自称", ""],
+      ]}
+    ]
+  },
+  {
+    t:"九、提交前终检（ScholarOne）",
+    groups:[
+      { g:"", items:[
+        ["已通篇英文润色（必要时使用语言编辑服务）", ""],
+        ["全文拼写检查通过；美式拼写统一（如 acknowledgment、behavior）", ""],
+        ["图/表/公式/参考文献的编号全部连续、无断号", ""],
+        ["导出 PDF 后逐页目视检查：图未糊、表未溢出、公式未串行", ""],
+        ["PDF 中<b>所有字体已嵌入</b>（尤其含中文或特殊字体的图）", ""],
+        ["已删除模板中的示例文字、说明性文字和占位符", ""],
+        ["已生成图形独立文件（每个图一个文件，PDF/EPS/TIFF 优先）", ""],
+        ["ScholarOne 每一步都点了 “Save and Continue” 直至出现完成确认", "just uploading the paper is not sufficient"],
+        ["已收到系统确认邮件，并检查了期刊主页的具体要求", ""],
+        ["如为混合 OA 期刊，已确认 open access 选项；已提交电子版权表 eCF", ""],
+      ]}
+    ]
+  }
+];
+
+const KEY = "tpe-checklist-v1";
+let state = {};
+try{ state = JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ state = {}; }
+
+const list = document.getElementById("list");
+let idx = 0;
+
+DATA.forEach(sec=>{
+  const d = document.createElement("details");
+  d.open = true;
+  const total = sec.groups.reduce((a,g)=>a+g.items.length,0);
+  const s = document.createElement("summary");
+  s.innerHTML = `<svg class="caret" viewBox="0 0 16 16" fill="currentColor"><path d="M6 4l4 4-4 4V4z"/></svg>
+                 <span class="stitle">${sec.t}</span>
+                 <span class="sstat" data-stat="${idx}">0/${total}</span>`;
+  d.appendChild(s);
+
+  const body = document.createElement("div");
+  body.className = "sbody";
+  sec.groups.forEach(g=>{
+    if(g.g){
+      const h = document.createElement("div");
+      h.className = "grp-label"; h.textContent = g.g;
+      body.appendChild(h);
+    }
+    g.items.forEach(it=>{
+      const id = "c" + (idx++);
+      const lab = document.createElement("label");
+      lab.className = "item";
+      lab.innerHTML = `<input type="checkbox" id="${id}" ${state[id]?"checked":""}>
+                       <span class="txt">${it[0]}${it[1]?`<span class="note">${it[1]}</span>`:""}</span>`;
+      lab.querySelector("input").addEventListener("change", e=>{
+        state[id] = e.target.checked;
+        localStorage.setItem(KEY, JSON.stringify(state));
+        refresh();
+      });
+      body.appendChild(lab);
+    });
+  });
+  d.appendChild(body);
+  list.appendChild(d);
+});
+
+function refresh(){
+  const all = [...document.querySelectorAll('input[type=checkbox]')];
+  const done = all.filter(i=>i.checked).length;
+  document.getElementById("bar").style.width = (done/all.length*100) + "%";
+  document.getElementById("pct").textContent = `${done} / ${all.length}`;
+
+  let cursor = 0;
+  DATA.forEach((sec,si)=>{
+    const total = sec.groups.reduce((a,g)=>a+g.items.length,0);
+    let c = 0;
+    for(let k=cursor;k<cursor+total;k++){
+      if(all[k] && all[k].checked) c++;
+    }
+    const el = document.querySelector(`[data-stat="${cursor}"]`);
+    if(el){
+      el.textContent = `${c}/${total}`;
+      el.style.color = (c===total) ? "var(--ok)" : "var(--text-3)";
+    }
+    cursor += total;
+  });
+}
+
+function toggleAll(v){
+  document.querySelectorAll('input[type=checkbox]').forEach(i=>{
+    i.checked = v; state[i.id] = v;
+  });
+  if(!v) state = {};
+  localStorage.setItem(KEY, JSON.stringify(state));
+  refresh();
+}
+
+refresh();
+</script>
+</body>
+</html>
